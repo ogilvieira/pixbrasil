@@ -1,0 +1,15 @@
+{
+  "name": "pix-br",
+  "version": "1.0.0",
+  "description": "Gerador de código e QR Code do PIX Brasileiro",
+  "main": "dist/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Gil Vieira <ogilvieira@gmail.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "jest": "^29.7.0",
+    "typescript": "^5.2.2"
+  }
+}
