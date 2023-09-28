@@ -10,7 +10,7 @@ export interface PixBRParams {
   message?: string;
   postalCode?: string;
   currencyCode?: string; //ISO-4217
-  countryCode?: string; //ISO-3166 alfa 2
+  countryCode?: string; //ISO-3166-1 alfa 2
 }
 
 export function PixBR({

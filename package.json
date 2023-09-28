@@ -9,7 +9,14 @@
   },
   "author": "Gilmair Vieira <ogilvieira@gmail.com>",
   "license": "MIT",
-  "repository": "ogilvieira/pix-br",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ogilvieira/pix-br.git"
+  },
+  "bugs": {
+    "url": "https://github.com/ogilvieira/pix-br/issues"
+  },
+  "homepage": "https://github.com/ogilvieira/pix-br#readme",
   "keywords": [
     "brasil",
     "bacen",
