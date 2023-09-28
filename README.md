@@ -17,6 +17,7 @@ npm install pix-br --save
 ## Usage / Uso
 ```typescript
 import { PixBR } from 'pixbrasil';
+// const { PixBR } = require('pixbrasil');
 
 const pixCode = PixBR({
   key: 'person@email.com', //or any PIX key
