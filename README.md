@@ -1,7 +1,7 @@
 # PIX BR 🇧🇷
 
 [![badge-tests](https://github.com/ogilvieira/pixbrasil/workflows/Tests/badge.svg)](https://github.com/ogilvieira/pixbrasil/actions)
-[![npm-version](https://img.shields.io/npm/v/pixbrasilcolor=brightgreen&label=npm%20package)](https://www.npmjs.com/package/pixbrasil)
+[![npm-version](https://img.shields.io/npm/v/pixbrasil?color=brightgreen&label=npm%20package)](https://www.npmjs.com/package/pixbrasil)
 
 Gerador de código do Pix Brasileiro estático. Para gerar o QrCode indicamos usar o pacote [node-qrcode](https://github.com/soldair/node-qrcode) ou qualquer outro que desejar.
 
