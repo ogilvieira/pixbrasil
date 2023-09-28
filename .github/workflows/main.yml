@@ -16,4 +16,4 @@ jobs:
       - name: npm install
         run: npm install
       - name: npm run test
-        run: npm run test -- -u
+        run: npm run test -- -u --ci --updateSnapshot

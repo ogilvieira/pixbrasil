@@ -4,7 +4,7 @@
   "description": "Gerador de código PIX Brasileiro",
   "main": "dist/index.js",
   "scripts": {
-    "test": "jest --ci --updateSnapshot --detectOpenHandles",
+    "test": "jest --detectOpenHandles",
     "build": "tsc --build"
   },
   "author": "Gilmair Vieira <ogilvieira@gmail.com>",
