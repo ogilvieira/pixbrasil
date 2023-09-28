@@ -31,7 +31,7 @@ export function PixBR({
   if(typeof currencyCode === 'string' && !/\b[0-9]{3}\b/.test(currencyCode)) { throw Error("Currency Code: must be a string with 3 uppercase characteres between 000 and 999 (ISO-4217)."); }
   if(postalCode !== undefined && !/\b[0-9]{8}\b/.test(postalCode)){ throw Error("Postal Code: must be 8 numbers.")}
   if(amount !== undefined && amount < 0) { throw Error("Amount: must be a positive decimal number."); }
-  if(transactionId !== '***' && (transactionId.length > 25 || /\s/.test(transactionId))){ throw Error("Transaction ID: must have max 20 characters and no spaces."); }
+  if(transactionId !== '***' && (transactionId.length > 25 || !/^[A-Z0-9]{1,25}$/.test(transactionId))){ throw Error("Transaction ID: must have max 20 characters and lower case 'a' to 'z', upper case 'A' to 'Z' and number 0 to 9."); }
 
   const keyStrPayload = [createEMV('00', 'BR.GOV.BCB.PIX'), createEMV('01', key)];
   if( message ) { keyStrPayload.push(createEMV('02', normalizePayloadString(message, Infinity, false))); }

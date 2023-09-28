@@ -12,18 +12,18 @@ function PixBR({ payloadVersion = '01', key, city, name, amount, transactionId =
     if (typeof currencyCode === 'string' && !/\b[0-9]{3}\b/.test(currencyCode)) {
         throw Error("Currency Code: must be a string with 3 uppercase characteres between 000 and 999 (ISO-4217).");
     }
-    if (postalCode !== undefined && !/\b[0-9]{8}\b/.test(currencyCode)) {
-        throw Error("Posta Code: must be 8 characters.");
+    if (postalCode !== undefined && !/\b[0-9]{8}\b/.test(postalCode)) {
+        throw Error("Postal Code: must be 8 numbers.");
     }
     if (amount !== undefined && amount < 0) {
         throw Error("Amount: must be a positive decimal number.");
     }
-    if (transactionId !== undefined && transactionId.length > 25) {
-        throw Error("Transaction ID: must have max 25 characters.");
+    if (transactionId !== '***' && (transactionId.length > 25 || /\s/.test(transactionId))) {
+        throw Error("Transaction ID: must have max 20 characters and no spaces.");
     }
     const keyStrPayload = [createEMV('00', 'BR.GOV.BCB.PIX'), createEMV('01', key)];
     if (message) {
-        keyStrPayload.push(createEMV('02', message));
+        keyStrPayload.push(createEMV('02', normalizePayloadString(message, Infinity, false)));
     }
     const strPayload = [
         createEMV('00', payloadVersion),
@@ -47,9 +47,11 @@ const createEMV = (keyId, keyValue) => {
     const length = keyValue.length.toString().padStart(2, '0');
     return `${keyId}${length}${keyValue}`;
 };
-const normalizePayloadString = (str, maxSize = Infinity) => String(str)
-    .substring(0, maxSize)
-    .toUpperCase()
-    .normalize('NFD')
-    .replace(/[\u0300-\u036f]/g, '');
+const normalizePayloadString = (str, maxSize = Infinity, upper = true) => {
+    const res = String(str)
+        .substring(0, maxSize)
+        .normalize('NFD')
+        .replace(/[\u0300-\u036f]/g, '');
+    return upper ? res.toUpperCase() : res;
+};
 exports.default = PixBR;

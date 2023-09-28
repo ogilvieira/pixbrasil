@@ -12,7 +12,7 @@ npm install pix-br --save
 
 ## Usage / Uso
 ```typescript
-import { PixBR } from 'pix-br';
+import { PixBR } from 'pixbrasil';
 
 const pixCode = PixBR({
   key: 'person@email.com', //or any PIX key
@@ -20,7 +20,7 @@ const pixCode = PixBR({
   city: 'SAO PAULO',
   transactionId: 'PIXBR_TRANSACTION_ID', //optional, max 25 characters
   message: 'E O Pix, Nada Ainda?', //optional
-  value: 13.37 //optional
+  amount: 13.37 //optional
 })
 
 console.log(pixCode); // '00020126420014BR.GOV.BCB.PIX...'

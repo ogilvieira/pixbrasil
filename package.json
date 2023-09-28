@@ -1,6 +1,6 @@
 {
-  "name": "pix-br",
-  "version": "1.0.0",
+  "name": "pixbrasil",
+  "version": "1.0.1",
   "description": "Gerador de código PIX Brasileiro",
   "main": "dist/index.js",
   "scripts": {
@@ -11,12 +11,12 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/ogilvieira/pix-br.git"
+    "url": "https://github.com/ogilvieira/pixbrasil.git"
   },
   "bugs": {
-    "url": "https://github.com/ogilvieira/pix-br/issues"
+    "url": "https://github.com/ogilvieira/pixbrasil/issues"
   },
-  "homepage": "https://github.com/ogilvieira/pix-br#readme",
+  "homepage": "https://github.com/ogilvieira/pixbrasil#readme",
   "keywords": [
     "brasil",
     "bacen",

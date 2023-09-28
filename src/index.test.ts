@@ -104,23 +104,45 @@ describe('Pix BR generator: Amount', () => {
 });
 
 describe('Pix BR generator: Transaction Id', () => {
-  it('Test invalid Transaction Id', async () => {
+  it('Test invalid Transaction Id spaces', async () => {
     const param: PixBRParams = {
       key: 'ogilvieira@gmail.com',
       name: 'Gilmair Vieira',
       city: 'SAO PAULO',
-      transactionId: "Lorem ipsum dolor sit amet."
+      transactionId: "PIXbr 1337"
     };
 
     expect(() => PixBR(param)).toThrow();
   })
 
+  it('Test invalid Transaction Id spaces', async () => {
+    const param: PixBRParams = {
+      key: 'ogilvieira@gmail.com',
+      name: 'Gilmair Vieira',
+      city: 'SAO PAULO',
+      transactionId: "PÍXbrã1337"
+    };
+
+    expect(() => PixBR(param)).toThrow();
+  })
+
+  it('Test invalid Transaction Id lower case', async () => {
+    const param: PixBRParams = {
+      key: 'ogilvieira@gmail.com',
+      name: 'Gilmair Vieira',
+      city: 'SAO PAULO',
+      transactionId: 'PIXbr1337',
+    };
+
+    expect(() => PixBR(param)).toThrow();
+  });
+
   it('Valid Transaction ID', async () => {
     const response = PixBR({
-        key: 'ogilvieira@gmail.com',
-        name: 'Gilmair Vieira',
-        city: 'SAO PAULO',
-        transactionId: 'PIXBR1337',
+      key: 'ogilvieira@gmail.com',
+      name: 'Gilmair Vieira',
+      city: 'SAO PAULO',
+      transactionId: 'PIXBR1337',
     });
 
     expect(response).toBe(
