@@ -1,6 +1,6 @@
 {
   "name": "pixbrasil",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "Gerador de código PIX Brasileiro",
   "main": "dist/index.js",
   "scripts": {
