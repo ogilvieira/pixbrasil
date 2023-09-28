@@ -33,7 +33,7 @@ console.log(pixCode); // '00020126420014BR.GOV.BCB.PIX...'
 |city (optional) | undefined | Uppercase city name with max 15 characters |
 |name| undefined | The merchant name |
 |amount (optional) | undefined | A positive number or none for open value |
-|transactionId (optional) | *** | A string with max 20 characters and no spaces |
+|transactionId (optional) | *** | A string with 25 characters just including A-Z (uppercase withou accents) and numbers |
 |postalCode (optional) | undefined | A string with exact 8 characters (See: [CEP](https://pt.wikipedia.org/wiki/C%C3%B3digo_de_Endere%C3%A7amento_Postal) the brazilian postal code.) |
 |currencyCode (optional) | "986" | See [ISO-4217](https://pt.wikipedia.org/wiki/ISO_4217) |
 |countryCode (optional) | "BR" | See [ISO-3166-1 alfa 2](https://pt.wikipedia.org/wiki/ISO_3166-1) |
