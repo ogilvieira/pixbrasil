@@ -1,4 +1,4 @@
-# PIX BR 🇧🇷
+# PIXBRASIL 🇧🇷
 
 [![Tests](https://github.com/ogilvieira/pixbrasil/actions/workflows/main.yml/badge.svg)](https://github.com/ogilvieira/pixbrasil/actions/workflows/main.yml)
 [![npm-version](https://img.shields.io/npm/v/pixbrasil?color=brightgreen&label=npm%20package)](https://www.npmjs.com/package/pixbrasil)
@@ -10,9 +10,9 @@ Gerador de código do Pix Brasileiro estático. Para gerar o QrCode indicamos us
 
 ## Installation / Instalação
 ```
-yarn add pix-br
+yarn add pixbrasil
 // or
-npm install pix-br --save
+npm install pixbrasil --save
 ```
 
 ## Usage / Uso
