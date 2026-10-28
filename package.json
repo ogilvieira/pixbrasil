@@ -3,9 +3,14 @@
   "version": "1.0.6",
   "description": "Gerador de código PIX Brasileiro",
   "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "test": "jest --detectOpenHandles",
-    "build": "tsc --build"
+    "build": "tsc --build",
+    "prepublishOnly": "npm run build && npm test"
   },
   "author": "Gilmair Vieira <ogilvieira@gmail.com>",
   "license": "MIT",

@@ -26,15 +26,28 @@ export function PixBR({
   countryCode = 'BR'
 }: PixBRParams) {
 
-  if(!payloadVersion.includes('01')) { throw Error("Payload Version: not supported."); }
-  if(!/\b[A-Z]{2}\b/.test(countryCode)) { throw Error("Country Code: must be 2 uppercase characteres (ISO-3166 alfa 2)."); }
-  if(typeof currencyCode === 'string' && !/\b[0-9]{3}\b/.test(currencyCode)) { throw Error("Currency Code: must be a string with 3 uppercase characteres between 000 and 999 (ISO-4217)."); }
-  if(postalCode !== undefined && !/\b[0-9]{8}\b/.test(postalCode)){ throw Error("Postal Code: must be 8 numbers.")}
-  if(amount !== undefined && amount < 0) { throw Error("Amount: must be a positive decimal number."); }
-  if(transactionId !== '***' && (transactionId.length > 25 || !/^[A-Z0-9]{1,25}$/.test(transactionId))){ throw Error("Transaction ID: must have max 25 characters just including A-Z (uppercase withou accents) and numbers."); }
+  if(payloadVersion !== '01') { throw Error("Payload Version: not supported."); }
+  if(!/^[A-Z]{2}$/.test(countryCode)) { throw Error("Country Code: must be 2 uppercase characters (ISO-3166 alfa 2)."); }
+  if(typeof currencyCode === 'string' && !/^[0-9]{3}$/.test(currencyCode)) { throw Error("Currency Code: must be a string with 3 numbers between 000 and 999 (ISO-4217)."); }
+  if(postalCode !== undefined && !/^[0-9]{8}$/.test(postalCode)){ throw Error("Postal Code: must be 8 numbers.")}
+  if(amount !== undefined && (!Number.isFinite(amount) || amount < 0)) { throw Error("Amount: must be a positive decimal number."); }
+  if(amount && amount.toFixed(2).length > 13) { throw Error("Amount: must have max 13 characters."); }
+  if(transactionId !== '***' && (transactionId.length > 25 || !/^[A-Z0-9]{1,25}$/.test(transactionId))){ throw Error("Transaction ID: must have max 25 characters just including A-Z (uppercase without accents) and numbers."); }
+  if(!key || !/^[\x21-\x7E]+$/.test(key)) { throw Error("Key: must be a non empty string without spaces or special characters."); }
+
+  const normalizedName = normalizePayloadString(name, 25);
+  const normalizedCity = normalizePayloadString(city, 15);
+  if(!normalizedName) { throw Error("Name: must not be empty."); }
+  if(!normalizedCity) { throw Error("City: must not be empty."); }
 
   const keyStrPayload = [createEMV('00', 'BR.GOV.BCB.PIX'), createEMV('01', key)];
-  if( message ) { keyStrPayload.push(createEMV('02', normalizePayloadString(message, Infinity, false))); }
+  const merchantAccountSize = keyStrPayload.join('').length;
+  if(merchantAccountSize > MAX_EMV_VALUE_SIZE) { throw Error(`Key: must have max ${MAX_EMV_VALUE_SIZE - (merchantAccountSize - key.length)} characters.`); }
+
+  // Message shares the 99 characters of field 26 with GUI and key
+  const messageMaxSize = MAX_EMV_VALUE_SIZE - merchantAccountSize - 4;
+  const normalizedMessage = message ? normalizePayloadString(message, messageMaxSize, false) : '';
+  if( normalizedMessage ) { keyStrPayload.push(createEMV('02', normalizedMessage)); }
 
   const strPayload: string = [
     createEMV('00', payloadVersion),
@@ -43,8 +56,8 @@ export function PixBR({
     createEMV('53', currencyCode),
     (amount ? createEMV('54', amount.toFixed(2)) : ''),
     createEMV('58', countryCode),
-    createEMV('59', normalizePayloadString(name, 25)),
-    createEMV('60', normalizePayloadString(city, 15)),
+    createEMV('59', normalizedName),
+    createEMV('60', normalizedCity),
     (postalCode ? createEMV('61', postalCode) : ''),
     createEMV('62', createEMV('05', transactionId)),
     '6304'
@@ -56,6 +69,8 @@ export function PixBR({
   return payloadPIX;
 }
 
+const MAX_EMV_VALUE_SIZE = 99;
+
 const createEMV = (keyId: string, keyValue: string): string => {
   const length = keyValue.length.toString().padStart(2, '0');
   return `${keyId}${length}${keyValue}`;
@@ -63,9 +78,12 @@ const createEMV = (keyId: string, keyValue: string): string => {
 
 const normalizePayloadString = ( str: string, maxSize: number = Infinity, upper: boolean = true ) => {
   const res = String(str)
-    .substring(0, maxSize)
     .normalize('NFD')
-    .replace(/[\u0300-\u036f]/g, '');
+    .replace(/[\u0300-\u036f]/g, '')
+    .replace(/[^\x20-\x7E]/g, '')
+    .trim()
+    .substring(0, maxSize)
+    .trim();
 
   return upper ? res.toUpperCase() : res;
 }

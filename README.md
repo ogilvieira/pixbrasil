@@ -36,10 +36,11 @@ console.log(pixCode); // '00020126420014BR.GOV.BCB.PIX...'
 |------|----|-----------|
 |payloadVersion (optional) | "01" | Payload Version, string with 2 numbers. |
 |key| undefined | The pix key, such as: CPF, CNPJ, E-mail or random key |
-|city (optional) | undefined | Uppercase city name with max 15 characters |
-|name| undefined | The merchant name |
-|amount (optional) | undefined | A positive number or none for open value |
-|transactionId (optional) | *** | A string with 25 characters just including A-Z (uppercase withou accents) and numbers |
+|city| undefined | City name, normalized to uppercase without accents and truncated to 15 characters |
+|name| undefined | The merchant name, normalized to uppercase without accents and truncated to 25 characters |
+|message (optional) | undefined | A message without accents, truncated to fit the 99 characters shared with the key (e.g. 53 characters for a 20 characters key) |
+|amount (optional) | undefined | A positive number with max 13 characters (e.g. 9999999999.99) or none for open value |
+|transactionId (optional) | *** | A string with max 25 characters just including A-Z (uppercase without accents) and numbers |
 |postalCode (optional) | undefined | A string with exact 8 characters (See: [CEP](https://pt.wikipedia.org/wiki/C%C3%B3digo_de_Endere%C3%A7amento_Postal) the brazilian postal code.) |
 |currencyCode (optional) | "986" | See [ISO-4217](https://pt.wikipedia.org/wiki/ISO_4217) |
 |countryCode (optional) | "BR" | See [ISO-3166-1 alfa 2](https://pt.wikipedia.org/wiki/ISO_3166-1) |
